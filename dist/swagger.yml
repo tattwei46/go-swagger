@@ -1,0 +1,72 @@
+basePath: /test/v1
+consumes:
+- application/json
+definitions:
+  UserResponseParam:
+    properties:
+      email:
+        type: string
+        x-go-name: Email
+      user_id:
+        type: string
+        x-go-name: ID
+    type: object
+    x-go-package: github.com/tattwei46/go-swagger
+  UserResponseParams:
+    items:
+      $ref: '#/definitions/UserResponseParam'
+    type: array
+    x-go-package: github.com/tattwei46/go-swagger
+host: localhost:8080
+info:
+  description: This application demonstrates go-swagger
+  title: Go GIN API.
+  version: 0.0.1
+paths:
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: Get ping
+      operationId: get-ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful operation
+      summary: Get ping
+      tags:
+      - users
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of users
+      operationId: get-users
+      parameters:
+      - in: header
+        name: MERCHANT-INFO-HEADER
+        type: string
+      - in: header
+        name: access-token
+        type: string
+      - in: header
+        name: refresh-token
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/UserResponseParams'
+        "401":
+          description: Unauthorized
+      summary: Get a list of users
+      tags:
+      - users
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"
